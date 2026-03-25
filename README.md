@@ -229,103 +229,179 @@ mysql>
 ### 1.用户端模块（读者）
 
 账号与个人中心：
+
 LoginServlet.java 和 RegisterServlet.java 实现用户注册登录
+
 EditProfileServlet.java 支持个人资料编辑，包含紧急联系人功能
+
 dashboard.jsp 展示个人中心信息
+
 borrow_list.jsp 查看借阅记录
+
 图书浏览与借阅：
+
 book_list.jsp 按分类浏览图书，支持搜索功能
+
 BorrowServlet.java 处理借阅申请，验证借阅上限和库存
+
 ISBN搜索功能已实现
+
 借阅跟踪与反馈：
+
 ReturnBookServlet.java 支持在线归还功能
+
 RenewServlet.java 支持在线续借功能
+
 OverdueReminderServlet.java 处理逾期提醒
+
 FeedbackServlet.java 支持提交阅读反馈
 
 ### 2.管理端模块（图书馆管理员）
 
 图书管理：
+
 UpdateBookServlet.java 实现图书信息录入和编辑
+
 ToggleHotServlet.java 设置热门图书
+
 ToggleReserveServlet.java 标记预约状态
+
 DeleteBookServlet.java 删除图书功能
+
 借阅处理：
+
 HandleRenewServlet.java 处理续借申请
+
 SendOverdueReminderServlet.java 发送逾期提醒
+
 借阅审核功能已实现
+
 数据统计：
+
 statistics.jsp 实现借阅数据统计分析
+
 dashboard.jsp 显示系统统计数据
+
 
 ## 详细文件分析
 
 ### 1.配置文件
 
 .gitignore：定义了IDE（IntelliJ IDEA、Eclipse等）生成的临时文件和输出目录的忽略规则
+
 WebDemo.iml：IntelliJ IDEA项目配置文件，定义了模块类型、源码目录、依赖库等
+
 web.xml：Web应用部署描述符，定义了Servlet规范版本
+
 
 ### 2.源码目录 (src/com/bookborrow/)
 
 **Servlet包 (servlet/)：**
 LoginServlet.java：用户登录处理，验证用户名密码并设置session
+
 LogoutServlet.java：用户退出登录，销毁session
+
 BorrowServlet.java：处理图书借阅业务，验证借阅上限和库存，插入借阅记录并更新库存
+
 ReturnBookServlet.java：处理图书归还业务，更新借阅记录状态并增加图书库存，计算逾期罚金
+
 RenewServlet.java：处理图书续借申请，验证续借条件并提交申请记录
+
 FeedbackServlet.java：处理用户反馈评价，验证图书ID并提交反馈信息
+
 EditProfileServlet.java：处理用户资料编辑，支持头像上传和用户信息更新
+
 OverdueReminderServlet.java：处理逾期提醒，将到期未还图书状态更新为逾期
+
 **管理员Servlet包 (servlet/admin/)：**
+
 DeleteBookServlet.java：管理员删除图书功能，验证是否有未归还借阅记录
+
 HandleRenewServlet.java：管理员处理续借申请，审批或拒绝用户续借请求
+
 ToggleReserveServlet.java：管理员设置图书预约状态
+
 ToggleHotServlet.java：管理员设置图书热门推荐状态
+
 UpdateBookServlet.java：管理员更新图书信息
+
 SendOverdueReminderServlet.java：管理员发送逾期提醒
+
 工具包 (util/)：
+
 DBUtil.java：数据库连接工具类，提供数据库连接池和连接获取方法
+
 
 ### 3.Web页面目录 (web/)
 
 **根目录页面：**
+
 index.jsp：网站首页，展示平台特色和功能介绍
+
 login.jsp：用户登录页面
+
 register.jsp：用户注册页面
+
 **用户功能页面 (web/user/)：**
+
 dashboard.jsp：用户个人中心主页，显示用户信息和借阅统计
+
 book_list.jsp：图书浏览页面，显示可借阅图书列表和借阅按钮
+
 borrow_list.jsp：借阅记录页面，显示用户借阅历史和归还按钮
+
 feedback.jsp：反馈评价页面，允许用户对已归还图书进行评价
+
 **管理员功能页面 (web/admin/)：**
+
 dashboard.jsp：管理员仪表盘，显示系统统计信息
+
 book_manage.jsp：图书管理页面，支持图书增删改查
+
 borrow_manage.jsp：借阅管理页面，处理借阅审核和续借申请
+
 statistics.jsp：数据统计页面，展示借阅趋势和热门图书分析
+
 _navbar.jsp：管理员导航栏公共组件
+
 **公共资源：**
+
 images/：存放项目图片资源（头像、封面、背景等）
+
 css/：样式文件
+
 js/：JavaScript脚本文件
+
 
 ### 4.数据库设计
 
 系统包含以下主要数据表：
+
 rjgc_users：用户信息表（包含借阅上限、联系方式等）
+
 rjgc_books：图书信息表（包含库存、分类、位置等）
+
 rjgc_borrow_records：借阅记录表（包含借阅状态、日期等）
+
 rjgc_renew_requests：续借申请表
+
 rjgc_feedback：用户反馈表
+
 
 ### 5.项目功能特点
 
 这是一个完整的图书借阅管理系统，支持：
+
 用户管理：注册、登录、个人资料编辑
+
 图书管理：图书浏览、借阅、归还、续借
+
 管理员功能：图书管理、借阅审核、数据统计
+
 逾期管理：自动逾期检测、罚金计算
+
 反馈系统：用户评价和反馈收集
+
 
 ## 运行说明
 
